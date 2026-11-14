@@ -35,34 +35,30 @@
   document.addEventListener('click', (e) => { if (!menu.hidden && !header.contains(e.target)) closeMenu({ restoreFocus: false }); });
   mq.addEventListener('change', () => closeMenu({ restoreFocus: false }));
 
-  // ---- Book dialog: confirmed metadata only ----
-  const data = JSON.parse(document.getElementById('book-data').textContent);
-  const dialog = document.getElementById('book-dialog');
-  const $ = (s) => dialog.querySelector(s);
-  let opener = null;
-
-  document.querySelectorAll('[data-book]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const b = data[btn.dataset.book];
-      if (!b) return;
-      opener = btn;
-      $('[data-dialog-title]').textContent = b.title;
-      $('[data-dialog-subtitle]').textContent = b.subtitle || '';
-      $('[data-dialog-author]').textContent = b.author;
-      $('[data-dialog-ill-row]').hidden = !b.illustrator;
-      $('[data-dialog-ill]').textContent = b.illustrator || '';
-      const img = $('[data-dialog-img]');
-      img.src = b.img; img.width = b.w; img.height = b.h;
-      dialog.showModal();
+  // ---- Catalogue filter (all books stay visible without JS) ----
+  const filters = document.querySelector('[data-filters]');
+  if (filters) {
+    filters.hidden = false;
+    const status = document.querySelector('[data-filter-status]');
+    const cards = document.querySelectorAll('.catalog__item');
+    filters.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-filter]');
+      if (!btn) return;
+      const tag = btn.dataset.filter;
+      filters.querySelectorAll('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      let shown = 0;
+      cards.forEach((c) => {
+        const on = !tag || c.dataset.tags.split(' ').includes(tag);
+        c.hidden = !on;
+        if (on) { shown++; c.classList.add('is-visible'); }
+      });
+      status.textContent = `${shown} bækur sýndar`;
     });
-  });
-  $('[data-dialog-close]').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
-  dialog.addEventListener('close', () => { if (opener) opener.focus(); });
+  }
 
   // ---- Highlight proposed copy (demo helper) ----
   const proposedBtn = document.querySelector('[data-proposed-toggle]');
-  proposedBtn.addEventListener('click', () => {
+  proposedBtn?.addEventListener('click', () => {
     const on = document.documentElement.classList.toggle('show-proposed');
     proposedBtn.setAttribute('aria-pressed', String(on));
   });

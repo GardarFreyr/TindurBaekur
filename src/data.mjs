@@ -10,6 +10,8 @@ export const contact = {
 };
 
 // Image sources. `file` is the untouched original in /originals.
+import { coverImages } from './books.mjs';
+
 export const images = {
   logo: {
     file: 'Tindur-logo-á-dökt.png',
@@ -23,13 +25,6 @@ export const images = {
     widths: [640, 1000, 1400, 2000],
     fallback: 'jpg',
     alt: 'Kápa: brandugla situr á tréstaur í grænu grasi',
-  },
-  freddi: {
-    file: 'Freddi-kápa.webp',
-    width: 1306, height: 1910,
-    widths: [320, 480, 720, 1000],
-    fallback: 'jpg',
-    alt: 'Kápa: teiknaður, brosandi strákur í hettupeysu lyftir fæti',
   },
   enginn: {
     file: 'Enginn-netið nýrri.webp',
@@ -61,53 +56,20 @@ export const images = {
   },
 };
 
-// Every factual field below is visible on the supplied cover.
-export const books = [
-  {
-    id: 'fuglar',
-    title: 'Fuglar í íslenskri náttúru',
-    author: 'María Björg Gunnarsdóttir',
-    illustrator: null,
-    asset: 'fuglar',
-    category: null,
-    confirmedFacts: ['Titill og höfundur sjást á kápu'],
-    needsConfirmation: ['Lýsing', 'Ljósmyndari', 'Útgáfuár', 'ISBN', 'Verð', 'Blaðsíðufjöldi', 'Markhópur'],
-  },
-  {
-    id: 'enginn',
-    title: 'Enginn kom í dag',
-    author: 'Helgi Jónsson',
-    illustrator: null,
-    asset: 'enginn',
-    category: null,
-    confirmedFacts: ['Titill og höfundur sjást á kápu'],
-    needsConfirmation: ['Lýsing', 'Höfundur kápuljósmyndar', 'Útgáfuár', 'ISBN', 'Verð'],
-  },
-  {
-    id: 'barnabok',
-    title: 'Barnabók',
-    subtitle: 'Hundrað og ein saga af Akureyri æsku minnar',
-    author: 'Sigmundur Ernir Rúnarsson',
-    illustrator: null,
-    asset: 'barnabok',
-    category: null, // Not a children's book just because of the title.
-    confirmedFacts: ['Titill, undirtitill og höfundur sjást á kápu'],
-    needsConfirmation: ['Lýsing', 'Bókaflokkur', 'Útgáfuár', 'ISBN', 'Verð'],
-  },
-  {
-    id: 'freddi',
-    title: 'Freddi fretari',
-    author: 'Helgi Jónsson',
-    illustrator: 'Hrannar Atli Hauksson',
-    asset: 'freddi',
-    category: 'barnabaekur',
-    confirmedFacts: ['Titill, höfundur og myndskreytir sjást á kápu', 'Hluti af barnabókaflokki á kynningarmynd'],
-    needsConfirmation: ['Lýsing', 'Útgáfuár', 'ISBN', 'Verð', 'Aldursviðmið'],
-  },
-];
+// Newly supplied covers (originals/kapur/*.jpg).
+const STEPS = [360, 540, 720, 960];
+for (const [key, [width, height]] of Object.entries(coverImages)) {
+  images[key] = {
+    file: `kapur/${key}.jpg`, width, height,
+    widths: [...STEPS.filter((w) => w < width - 40), width],
+    fallback: 'jpg',
+  };
+}
+images.enginn.widths = [360, 540, 720, 1080];
+images.barnabok.widths = [360, 540, 720, 1080];
 
 // Titles as printed on the children's-series montage, left to right.
-// NOTE: the brief lists "Inga syngur"; the artwork reads "Inga slynga".
+// The brief listed "Inga syngur"; artwork, cover and Word document all say "Inga slynga".
 export const series = [
   { title: 'Freddi fretari', accent: '#2b8f83' },
   { title: 'Inga slynga', accent: '#c9452c' },

@@ -70,3 +70,27 @@ Company description · book descriptions · prices and where to buy · ISBN and 
 - Search of the built page for prices, ISBN, dates, addresses, reviews, "kaupa"/cart: none found.
 - `shasum -c originals/CHECKSUMS.txt`: all originals unchanged.
 - Reduced motion: reveals, hover lifts and smooth scroll are turned off.
+
+---
+
+## Update 2026-11-14 – full book collection
+
+Source: Helgi's "Tindur - textar við bækurnar.docx" (20 book texts) + 13 new cover images.
+
+**What changed**
+- `src/books.mjs` (new): all 20 books with Helgi's text, authors, translators, illustrators, author notes and a `textNotes` log of every text fix or open question. No years exist in the doc, so `year` is null for all.
+- Homepage: the 4-book grid is now a full collection (4/3/2 columns) with filters (Allar / Fyrir unga lesendur / Þýddar). Every cover sits on a common baseline. Filters only use facts stated in the text.
+- 20 new book pages at `/baekur/<slug>/` with the full description, credits, author note, a "details to come" note and previous/next links. These replace the old pop-up panel.
+- Books without covers get a typographic "Kápa væntanleg" placeholder.
+- Hero Freddi cover swapped to the newly supplied file. Hero covers, kids-series titles, Fuglar and Brostu/Systur now link to book pages.
+- Fuglar feature shows Helgi's description. The Brostu/Systur copy now says "óbeint framhald" (as in Helgi's text) and credits the translation.
+- Demo strip now reads "Sýnidæmi til yfirlestrar · Ekki fullbúin vefverslun" on every page.
+- All asset and link paths are root-absolute (`/img/...`), which works on Netlify and on the local preview.
+
+**Order:** Word-document order, with the four books awaiting covers moved last. This is provisional and documented in `books.mjs`. Sort by `year` once years arrive.
+
+**New originals:** `originals/kapur/*.jpg` (13 files, read-only, checksums added). The covers came in as chat attachments without original filenames, so they're named by book. The old Freddi file (1306 px) is still in `originals/` but no longer used.
+
+**Review sheet for Helgi (Icelandic):** `YFIRFERD-HELGA.md`.
+
+**Tested:** build OK (21 pages). 1,334 links/images checked with 0 broken. `noindex` on every page. No horizontal overflow at 320–1920 on the homepage and a book page. Filters, menu and book pages checked on desktop and at 375. All 25 homepage images load. Not committed, pushed or deployed.

@@ -4,7 +4,7 @@ import sharp from 'sharp';
 import { mkdir, copyFile, writeFile, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { images } from './src/data.mjs';
-import { renderPage } from './src/page.mjs';
+import { renderHome, renderBook, books } from './src/page.mjs';
 
 const DIST = 'dist';
 const FONTS = [
@@ -43,5 +43,10 @@ for (const [key, img] of Object.entries(images)) {
 
 for (const f of ['styles.css', 'main.js']) await copyFile(`src/${f}`, `${DIST}/${f}`);
 await writeFile(`${DIST}/robots.txt`, '# Sýnidæmi – ekki til birtingar\nUser-agent: *\nDisallow: /\n');
-await writeFile(`${DIST}/index.html`, renderPage());
+await writeFile(`${DIST}/index.html`, renderHome());
+for (const b of books) {
+  await mkdir(`${DIST}/baekur/${b.slug}`, { recursive: true });
+  await writeFile(`${DIST}/baekur/${b.slug}/index.html`, renderBook(b));
+}
+console.log(`${books.length} book pages`);
 console.log('Built dist/');

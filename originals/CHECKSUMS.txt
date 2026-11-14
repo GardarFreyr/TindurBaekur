@@ -5,3 +5,16 @@ d08d87a83a611c40bd1668c672936153a26ff0e8  originals/Fuglar.webp
 dff2f654f328a6c92d8a2ecffaa4f0388280f74e  originals/Tindur-logo-á-dökt.png
 0934038f05a6b71bc4d63dcbacfc4dc412ba80dc  originals/Tindur_SYSTUR_1095x386p.png
 d815f8f0602770b427b6a7307472f9fd7102ca7a  originals/Tindur_skyggna-barnabækur.webp
+fe3a069b427b4653fbe45f27fd87a4b957cead89  originals/kapur/ast-a-strondinni.jpg
+973fea50435fa679054a8aedf8c303968c54c9d0  originals/kapur/blodsnjor.jpg
+190adb2d40c821d9590688469317f13562446d38  originals/kapur/brostu.jpg
+b7451b4b80a29112f1aae2e49b69ff7bf0b0c05d  originals/kapur/daudinn.jpg
+f62aabb5bf6269ba39e4a782f8c5012e9dcaa0de  originals/kapur/dori-stori.jpg
+44ba69d28d83ca9d1edc05090cc381dbf11cc45b  originals/kapur/freddi-fretari.jpg
+a61a53e40c93ecbb571bc6cf077de3c235df8c8d  originals/kapur/fremst-i-fokki.jpg
+524bbb7db9fbf6f8ee0c07e22a62f915e808fbaf  originals/kapur/harmaborgin.jpg
+a880eb970bbe745f8a6b91b96bc6ee92fede6bc5  originals/kapur/inga-slynga.jpg
+2e3c2540653c3c722c50703700d1cfcf14f820d0  originals/kapur/m-samtol.jpg
+ffb721b3359decb78263a5e831bd93f775351aee  originals/kapur/sibba-subb.jpg
+77d53a43637ef321b1558eb08fb9a53bc8e85773  originals/kapur/undirheimar.jpg
+7c3bec643783a4dce59319175cbc8cbb49572892  originals/kapur/utanveltumadur.jpg
