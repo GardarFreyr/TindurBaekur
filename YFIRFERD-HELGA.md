@@ -4,7 +4,10 @@ Sýnidæmi til yfirlestrar. Vefurinn er ekki opinberlega kominn í loftið og er
 
 ## Það sem við þurfum frá þér
 
-1. **Útgáfuár allra bóka.** Í textaskjalinu eru engin ártöl, svo bækurnar eru birtar í sömu röð og í skjalinu (bækur sem enn vantar kápu eru aftast). Þegar ártölin liggja fyrir raðast nýjustu bækurnar fremst.
+1. **Röð bókanna – vinsamlegast staðfestu.** Nýjustu bækurnar eru nú efst á forsíðunni undir „Nýjustu bækurnar“ og fá meira pláss: Veiðivinir 2, Systur, Úr húfu Guðs í þennan heim og Leigubílstjóri deyr (fyrstu fjórar bækurnar í textaskjalinu þínu). Neðst eru Utanveltumaður, Ást á ströndinni, Blóðsnjór og Harmaborgin (síðustu fjórar í skjalinu).
+   - Eru þetta réttu fjórar eldri bækurnar sem þú áttir við?
+   - Þú nefndir að víxla röðinni varðandi Veiðivini 2. Hvaða bækur á að víxla? Til dæmis: á Systur að vera fremst og Veiðivinir 2 í öðru sæti? Við breyttum þessu ekki fyrr en það er staðfest.
+   - Útgáfuár vantar enn. Þegar þau berast getum við raðað eftir þeim.
 2. **Kápumyndir sem vantar:** Veiðivinir 2, Systur (sést aðeins á kynningarborðanum), Úr húfu Guðs í þennan heim og Leigubílstjóri deyr.
 3. **Stærri útgáfur kápa ef til eru:** Utanveltumaður (772 px breið), Blóðsnjór (820 px), Fremst í fokki og Harmaborgin (928 px). Þær líta vel út á vefnum en stærri skrár væru betri.
 4. **Höfundar sem við ályktuðum af textanum:** Veiðivinir 2 → Gunnar Bender, Leigubílstjóri deyr → Ágúst Þór Ámundason. Er það rétt?

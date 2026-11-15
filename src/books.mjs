@@ -4,9 +4,10 @@
 // supplied cover images. Description text is copied from the document.
 // Every change to the client's wording is listed in `textNotes`.
 //
-// ORDER: the document gives no publication years, so the list keeps the order
-// of the Word document as a PROVISIONAL order (covers-pending books last, see below). Replace with real years
-// (`year`) and sort newest first once Helgi confirms them.
+// ORDER: newest first, following the order of Helgi's Word document (the
+// document starts with the newest titles and ends with the older ones). The
+// document gives no publication years, so `year` stays null; sort by real
+// years once Helgi confirms them. See NEWEST / OLDER at the end of the file.
 //
 // Fields left null are unknown — never fill them with guesses.
 
@@ -305,12 +306,16 @@ const map = { á: 'a', ð: 'd', é: 'e', í: 'i', ó: 'o', ú: 'u', ý: 'y', þ:
 export const slugify = (s) =>
   s.toLowerCase().replace(/[áðéíóúýþæö]/g, (c) => map[c]).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-// Provisional display order: Word-document order, except that books still
-// waiting for a cover are shown last so the collection doesn't open on blanks.
-// Replace with newest-first by `year` once publication years are confirmed.
-books.sort((a, b) => Number(!a.cover) - Number(!b.cover)); // stable sort keeps doc order within each group
+// Groups (Helgi, 2026-11-15: newest books first and most prominent, Systur
+// among them; four ~1-year-old books incl. Utanveltumaður further down).
+// NEWEST = the first four titles in the Word document. OLDER = the last four
+// titles in the document, which include Utanveltumaður. Both are inferred from
+// the document order and must be confirmed by Helgi; no dates were invented.
+export const NEWEST = ['Veiðivinir 2', 'Systur', 'Úr húfu Guðs í þennan heim', 'Leigubílstjóri deyr'];
+export const OLDER = ['Utanveltumaður', 'Ást á ströndinni', 'Blóðsnjór', 'Harmaborgin'];
 books.forEach((b, i) => {
   b.slug = slugify(b.title);
   b.order = i + 1;
+  b.group = NEWEST.includes(b.title) ? 'newest' : OLDER.includes(b.title) ? 'older' : null;
   b.year = b.year ?? null;
 });

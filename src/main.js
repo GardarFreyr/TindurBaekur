@@ -52,6 +52,9 @@
         c.hidden = !on;
         if (on) { shown++; c.classList.add('is-visible'); }
       });
+      document.querySelectorAll('[data-group]').forEach((g) => {
+        g.hidden = !g.querySelector('.catalog__item:not([hidden])');
+      });
       status.textContent = `${shown} bækur sýndar`;
     });
   }

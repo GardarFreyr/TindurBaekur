@@ -87,10 +87,21 @@ Source: Helgi's "Tindur - textar við bækurnar.docx" (20 book texts) + 13 new c
 - Demo strip now reads "Sýnidæmi til yfirlestrar · Ekki fullbúin vefverslun" on every page.
 - All asset and link paths are root-absolute (`/img/...`), which works on Netlify and on the local preview.
 
-**Order:** Word-document order, with the four books awaiting covers moved last. This is provisional and documented in `books.mjs`. Sort by `year` once years arrive.
+**Order:** see the 2026-11-15 update below.
 
 **New originals:** `originals/kapur/*.jpg` (13 files, read-only, checksums added). The covers came in as chat attachments without original filenames, so they're named by book. The old Freddi file (1306 px) is still in `originals/` but no longer used.
 
 **Review sheet for Helgi (Icelandic):** `YFIRFERD-HELGA.md`.
 
 **Tested:** build OK (21 pages). 1,334 links/images checked with 0 broken. `noindex` on every page. No horizontal overflow at 320–1920 on the homepage and a book page. Filters, menu and book pages checked on desktop and at 375. All 25 homepage images load. Not committed, pushed or deployed.
+
+---
+
+## Update 2026-11-15 – newest books first
+
+- Removed the "covers-pending books last" sort. The order is now the Word document's order, which runs newest to oldest.
+- `books.mjs` exports `NEWEST` (the first four in the document) and `OLDER` (the last four, including Utanveltumaður), and sets `b.group`. Both lists are inferred from the document order and are waiting for Helgi to confirm them. No dates were added.
+- Homepage `#baekur`: a "Nýjustu bækurnar" group of four larger horizontal cards, then "Fleiri bækur" (the other 16 in the existing grid, with the OLDER four last). The group headings are marked `data-proposed`. The filters hide a group when none of its books match.
+- Book-page prev/next links follow the new order.
+- Open questions: confirm the four older books; what the "swap with Veiðivinir 2" means (not applied); publication years; the four newest books still have no covers, so they show the "Kápa væntanleg" placeholder.
+- Domain: still https://tindurbaekur.netlify.app/. Nothing about tindurutgafa.is has been configured.

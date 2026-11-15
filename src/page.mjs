@@ -124,11 +124,12 @@ ${body}
 const excerpt = (b) => b.description[0] ?? b.quote?.text ?? '';
 const credit = (b) => [b.translator && `Íslensk þýðing: ${b.translator}`, b.illustrator && `Myndskreyting: ${b.illustrator}`].filter(Boolean);
 
-function card(b) {
+function card(b, { featured = false } = {}) {
   const tags = [b.audience.includes('ungir') && 'ungir', b.translated && 'thyddar'].filter(Boolean).join(' ');
-  return `<li class="catalog__item" data-tags="${tags}" data-reveal>
-      <article class="card">
-        <div class="card__shelf">${cover(b, { sizes: '(min-width: 1100px) 260px, (min-width: 700px) 30vw, 45vw' })}</div>
+  const sizes = featured ? '(min-width: 1100px) 220px, (min-width: 700px) 18vw, 34vw' : '(min-width: 1100px) 260px, (min-width: 700px) 30vw, 45vw';
+  return `<li class="catalog__item${featured ? ' catalog__item--new' : ''}" data-tags="${tags}" data-reveal>
+      <article class="card${featured ? ' card--new' : ''}">
+        <div class="card__shelf">${cover(b, { sizes })}</div>
         <div class="card__meta">
           <h3 class="card__title"><a class="card__link" href="${bookUrl(b)}">${esc(b.title)}</a></h3>
           <p class="card__author">${esc(b.author)}</p>
@@ -145,6 +146,8 @@ function homeBody() {
   const fuglar = byTitle['Fuglar í íslenskri náttúru'], brostu = byTitle['Brostu'], systur = byTitle['Systur'];
   const kids = books.filter((b) => b.audience.includes('ungir')).length;
   const translated = books.filter((b) => b.translated).length;
+  const newest = books.filter((b) => b.group === 'newest');
+  const rest = books.filter((b) => b.group !== 'newest');
   return `
     <!-- HERO -->
     <section class="hero" id="forsida" aria-labelledby="hero-title">
@@ -180,12 +183,21 @@ function homeBody() {
             <button type="button" class="filter" aria-pressed="false" data-filter="ungir">Fyrir unga lesendur <span>${kids}</span></button>
             <button type="button" class="filter" aria-pressed="false" data-filter="thyddar">Þýddar bækur <span>${translated}</span></button>
           </div>
-          <p class="catalog__note">Röð bókanna er til bráðabirgða þar til útgáfuár liggja fyrir.</p>
+          <p class="catalog__note">Nýjustu bækurnar eru fremst. Útgáfuár bætast við þegar þau liggja fyrir.</p>
         </div>
         <p class="visually-hidden" aria-live="polite" data-filter-status></p>
-        <ul class="catalog__grid" role="list">
-          ${books.map(card).join('\n          ')}
-        </ul>
+        <div class="catalog__group catalog__group--new" data-group>
+          <h3 class="catalog__group-title" data-proposed>Nýjustu bækurnar</h3>
+          <ul class="catalog__grid catalog__grid--new" role="list">
+            ${newest.map((b) => card(b, { featured: true })).join('\n            ')}
+          </ul>
+        </div>
+        <div class="catalog__group" data-group>
+          <h3 class="catalog__group-title" data-proposed>Fleiri bækur</h3>
+          <ul class="catalog__grid" role="list">
+            ${rest.map((b) => card(b)).join('\n            ')}
+          </ul>
+        </div>
       </div>
     </section>
 
