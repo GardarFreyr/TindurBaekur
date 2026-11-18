@@ -1,4 +1,4 @@
-// Book catalogue for the Tindur demo.
+// Book catalogue for Bókaútgáfan Tindur.
 //
 // SOURCE: "Tindur - textar við bækurnar.docx" from Helgi Jónsson, plus the
 // supplied cover images. Description text is copied from the document.

@@ -1,4 +1,4 @@
-/* Tindur – homepage demo */
+/* Bókaútgáfan Tindur */
 @font-face {
   font-family: 'Fraunces';
   src: url('fonts/fraunces.woff2') format('woff2');
@@ -126,33 +126,6 @@ p { margin: 0; text-wrap: pretty; }
 .btn--light { border-color: rgba(243,238,228,.5); color: var(--paper); background: transparent; }
 .btn--light:hover { background: var(--paper); color: var(--ink); }
 
-/* ---------- Demo strip ---------- */
-.demo-strip {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .35rem 1.25rem;
-  padding: 7px var(--gutter);
-  background: var(--stone);
-  color: #3c3832;
-  font-size: .78rem;
-  text-align: center;
-}
-.demo-strip__toggle {
-  font: inherit; font-weight: 600; color: var(--ink);
-  background: none; border: 0; padding: 4px 2px; cursor: pointer;
-  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
-}
-@media (max-width: 599px) { .demo-strip { font-size: .72rem; padding-block: 6px; } .demo-strip__toggle { display: none; } }
-.demo-strip__toggle[aria-pressed='true'] { color: var(--orange-ink); }
-.show-proposed [data-proposed] {
-  outline: 2px dashed var(--orange); outline-offset: 6px; border-radius: 2px;
-  position: relative;
-}
-.show-proposed [data-proposed]::after {
-  content: 'Tillaga að texta';
-  position: absolute; top: -1.9em; left: 0;
-  font: 600 .65rem/1 var(--sans); letter-spacing: .08em; text-transform: uppercase;
-  background: var(--orange); color: var(--ink); padding: 4px 6px; border-radius: 2px;
-  white-space: nowrap;
-}
 
 /* ---------- Header ---------- */
 .site-header {
@@ -315,9 +288,6 @@ p { margin: 0; text-wrap: pretty; }
 }
 .cover__title { font-family: var(--serif); font-size: clamp(1.05rem, .9rem + .6vw, 1.5rem); line-height: 1.1; font-weight: 450; }
 .cover__author { font-size: .8rem; color: #3a362f; }
-.cover__note {
-  margin-top: auto; font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
-}
 
 /* ---------- Catalogue ---------- */
 .section-head { max-width: 760px; margin-bottom: clamp(32px, 4vw, 48px); }
@@ -339,7 +309,6 @@ p { margin: 0; text-wrap: pretty; }
 .filter:hover { border-color: var(--ink); }
 .filter[aria-pressed='true'] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .filter[aria-pressed='true'] span { color: rgba(243,238,228,.7); }
-.catalog__note { font-size: .85rem; color: var(--muted); }
 
 .catalog__grid {
   list-style: none; margin: 0; padding: 0;
@@ -445,7 +414,6 @@ p { margin: 0; text-wrap: pretty; }
 .bookpage__about h2 { font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .6rem; }
 .bookpage__about p { line-height: 1.65; }
 .bookpage__about p + p { margin-top: .8em; }
-.bookpage__pending { margin-top: 2rem; max-width: 62ch; font-size: .88rem; color: var(--muted); padding-left: 16px; border-left: 2px solid var(--stone); }
 
 .pager {
   margin-top: clamp(64px, 8vw, 112px); padding-top: 28px; border-top: 1px solid var(--stone);

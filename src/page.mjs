@@ -1,6 +1,11 @@
 import { images, series, contact } from './data.mjs';
 import { books } from './books.mjs';
 
+// Launch switch. TINDUR_PUBLIC=1 makes the site indexable (no noindex, adds
+// canonical URLs and a sitemap). Keep it off until the client approves launch.
+export const PUBLIC = process.env.TINDUR_PUBLIC === '1';
+export const SITE_URL = 'https://tindurutgafa.is';
+
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const bySlug = Object.fromEntries(books.map((b) => [b.slug, b]));
 const byTitle = Object.fromEntries(books.map((b) => [b.title, b]));
@@ -19,14 +24,13 @@ function picture(key, { sizes = '100vw', alt, cls = '', eager = false, priority 
     </picture>`;
 }
 
-// Cover, or an honest typographic stand-in when no cover was supplied.
+// Cover, or a typographic stand-in when no cover image has been supplied yet.
 function cover(book, { sizes, alt = '', eager = false, priority = false } = {}) {
   if (!book.cover) {
-    return `<div class="cover cover--missing" role="img" aria-label="${esc(`Kápa bókarinnar ${book.title} er væntanleg`)}">
+    return `<div class="cover cover--missing" role="img" aria-label="${esc(`${book.title} – ${book.author}`)}">
       <span class="cover__mark" aria-hidden="true"></span>
       <span class="cover__title" aria-hidden="true">${esc(book.title)}</span>
       <span class="cover__author" aria-hidden="true">${esc(book.author)}</span>
-      <span class="cover__note" aria-hidden="true">Kápa væntanleg</span>
     </div>`;
   }
   const img = images[book.cover];
@@ -43,17 +47,17 @@ const navItems = [
 const navList = (cls) => `<ul class="${cls}">${navItems.map(([h, t]) => `<li><a href="${h}">${t}</a></li>`).join('')}</ul>`;
 const logo = (sizes, cls, eager = false) => picture('logo', { sizes, alt: 'Tindur', cls, eager });
 
-function layout({ title, description, body, home = false }) {
+function layout({ title, description, body, path = '/' }) {
   return `<!doctype html>
 <html lang="is" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
-  <meta name="robots" content="noindex, nofollow">
+  ${PUBLIC ? `<link rel="canonical" href="${SITE_URL}${path}">\n  <meta property="og:url" content="${SITE_URL}${path}">` : '<meta name="robots" content="noindex, nofollow">'}
   <meta name="description" content="${esc(description)}">
   <meta property="og:title" content="${esc(title)}">
-  <meta property="og:description" content="Sýnidæmi til yfirlestrar. Ekki til birtingar.">
+  <meta property="og:description" content="${esc(description)}">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="is_IS">
   <meta name="theme-color" content="#111111">
@@ -65,11 +69,6 @@ function layout({ title, description, body, home = false }) {
 </head>
 <body>
   <a class="skip" href="#efni">Fara beint í efni</a>
-
-  <div class="demo-strip" role="note">
-    <p>Sýnidæmi til yfirlestrar · Ekki fullbúin vefverslun</p>
-    ${home ? '<button type="button" class="demo-strip__toggle" aria-pressed="false" data-proposed-toggle>Merkja tillögur að texta</button>' : ''}
-  </div>
 
   <header class="site-header" data-header>
     <div class="site-header__inner">
@@ -108,8 +107,8 @@ ${body}
       </div>
     </div>
     <div class="container site-footer__base">
-      <p>Sýnidæmi hannað af Gardarvef</p>
-      <p>© Tindur — ártal og lagalegur texti staðfestist fyrir birtingu</p>
+      <p>© ${new Date().getFullYear()} Bókaútgáfan Tindur</p>
+      <p>Vefhönnun: Gardarvefur</p>
     </div>
   </footer>
 
@@ -154,8 +153,8 @@ function homeBody() {
       <div class="container hero__grid">
         <div class="hero__text">
           <p class="eyebrow">Bókaútgáfan Tindur</p>
-          <h1 id="hero-title" class="hero__title" data-proposed>Bækur sem rata til&nbsp;lesenda.</h1>
-          <p class="hero__lede" data-proposed>Tindur gefur út fjölbreytt verk fyrir unga sem eldri lesendur.</p>
+          <h1 id="hero-title" class="hero__title">Bækur sem rata til&nbsp;lesenda.</h1>
+          <p class="hero__lede">Tindur gefur út fjölbreytt verk fyrir unga sem eldri lesendur.</p>
           <div class="hero__actions">
             <a class="btn btn--primary" href="#baekur">Skoða útgáfuna</a>
             <a class="btn btn--ghost" href="#hafa-samband">Hafa samband</a>
@@ -183,17 +182,16 @@ function homeBody() {
             <button type="button" class="filter" aria-pressed="false" data-filter="ungir">Fyrir unga lesendur <span>${kids}</span></button>
             <button type="button" class="filter" aria-pressed="false" data-filter="thyddar">Þýddar bækur <span>${translated}</span></button>
           </div>
-          <p class="catalog__note">Nýjustu bækurnar eru fremst. Útgáfuár bætast við þegar þau liggja fyrir.</p>
         </div>
         <p class="visually-hidden" aria-live="polite" data-filter-status></p>
         <div class="catalog__group catalog__group--new" data-group>
-          <h3 class="catalog__group-title" data-proposed>Nýjustu bækurnar</h3>
+          <h3 class="catalog__group-title">Nýjustu bækurnar</h3>
           <ul class="catalog__grid catalog__grid--new" role="list">
             ${newest.map((b) => card(b, { featured: true })).join('\n            ')}
           </ul>
         </div>
         <div class="catalog__group" data-group>
-          <h3 class="catalog__group-title" data-proposed>Fleiri bækur</h3>
+          <h3 class="catalog__group-title">Fleiri bækur</h3>
           <ul class="catalog__grid" role="list">
             ${rest.map((b) => card(b)).join('\n            ')}
           </ul>
@@ -208,7 +206,7 @@ function homeBody() {
       </div>
       <div class="feature__text" data-reveal>
         <p class="eyebrow eyebrow--light">Í brennidepli</p>
-        <h2 id="feature-title" class="section-title section-title--light" data-proposed>Íslensk náttúra í&nbsp;öndvegi.</h2>
+        <h2 id="feature-title" class="section-title section-title--light">Íslensk náttúra í&nbsp;öndvegi.</h2>
         <p class="feature__book"><span class="feature__book-title">${esc(fuglar.title)}</span>
           <span class="feature__book-author">${esc(fuglar.author)}</span></p>
         <p class="feature__desc">${esc(fuglar.description[0])}</p>
@@ -240,7 +238,7 @@ function homeBody() {
           <p class="eyebrow">Framhaldið er komið</p>
           <h2 id="systur-title" class="section-title">Brostu og Systur</h2>
           <p class="systur__author">Raina Telgemeier<span>Íslensk þýðing: Helgi Jónsson</span></p>
-          <p data-proposed>Systur er óbeint framhald af Brostu.</p>
+          <p>Systur er óbeint framhald af Brostu.</p>
           <p class="systur__links"><a href="${bookUrl(brostu)}">Um Brostu</a><a href="${bookUrl(systur)}">Um Systur</a></p>
         </div>
         <figure class="systur__banner" data-reveal>
@@ -256,7 +254,7 @@ function homeBody() {
         <div class="about__text" data-reveal>
           <p class="eyebrow eyebrow--light">Um Tind</p>
           <h2 id="about-title" class="section-title section-title--light">Tindur</h2>
-          <p class="about__lede" data-proposed>Bókaútgáfan Tindur stendur að fjölbreyttri útgáfu þar sem íslensk verk, þýddar bækur og efni fyrir yngri lesendur fá skýra og vandaða framsetningu.</p>
+          <p class="about__lede">Bókaútgáfan Tindur stendur að fjölbreyttri útgáfu þar sem íslensk verk, þýddar bækur og efni fyrir yngri lesendur fá skýra og vandaða framsetningu.</p>
         </div>
       </div>
     </section>
@@ -280,10 +278,9 @@ function homeBody() {
 
 export function renderHome() {
   return layout({
-    title: 'Tindur – sýnidæmi (ekki til birtingar)',
-    description: 'Óskuldbindandi sýnidæmi að vef fyrir Bókaútgáfuna Tind. Ekki fullbúinn vefur.',
+    title: 'Bókaútgáfan Tindur',
+    description: 'Tindur gefur út fjölbreytt verk fyrir unga sem eldri lesendur.',
     body: homeBody(),
-    home: true,
   });
 }
 
@@ -316,7 +313,6 @@ export function renderBook(b) {
               ${b.quote ? `<blockquote class="bookpage__quote"><p>${esc(b.quote.text)}</p><footer>— ${esc(b.quote.cite)}</footer></blockquote>` : ''}
             </div>
             ${b.about ? `<section class="bookpage__about" aria-labelledby="about-h"><h2 id="about-h">${b.aboutHeading}</h2>${b.about.map((p) => `<p>${esc(p)}</p>`).join('')}</section>` : ''}
-            <p class="bookpage__pending">Nánari bókarupplýsingar, svo sem útgáfuár, blaðsíðufjöldi og ISBN, verða settar inn í samráði við útgefanda.</p>
           </div>
         </div>
         <nav class="pager" aria-label="Fleiri bækur">
@@ -326,9 +322,10 @@ export function renderBook(b) {
       </div>
     </article>`;
   return layout({
-    title: `${b.title} – Tindur (sýnidæmi)`,
-    description: `${b.title} eftir ${b.author}. Sýnidæmi – ekki til birtingar.`,
+    title: `${b.title} – Bókaútgáfan Tindur`,
+    description: `${b.title} eftir ${b.author}. Bókaútgáfan Tindur.`,
     body,
+    path: bookUrl(b),
   });
 }
 

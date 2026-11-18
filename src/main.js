@@ -59,13 +59,6 @@
     });
   }
 
-  // ---- Highlight proposed copy (demo helper) ----
-  const proposedBtn = document.querySelector('[data-proposed-toggle]');
-  proposedBtn?.addEventListener('click', () => {
-    const on = document.documentElement.classList.toggle('show-proposed');
-    proposedBtn.setAttribute('aria-pressed', String(on));
-  });
-
   // ---- Gentle reveal on scroll ----
   const items = document.querySelectorAll('[data-reveal]');
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {

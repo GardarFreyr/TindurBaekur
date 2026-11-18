@@ -6,12 +6,10 @@
 
 [build.environment]
   NODE_VERSION = "22"   # sharp needs Node >= 20.9
+  TINDUR_PUBLIC = "1"   # public launch approved by the client 2026-11-18
 
 # Single static page with in-page anchors only, so there is no SPA fallback
 # on purpose: a catch-all would turn missing assets into 200s.
 
-# Demo site: keep it out of search engines.
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
+# Search engines: the build writes noindex (meta tag, _headers, robots.txt)
+# unless TINDUR_PUBLIC=1 (set above). Remove that line to hide the site again.

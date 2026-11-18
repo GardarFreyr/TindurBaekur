@@ -1,4 +1,4 @@
-// Content for the Tindur demo homepage.
+// Site content for Bókaútgáfan Tindur.
 // Rule: only facts visible in the supplied artwork or given in the brief.
 // Unknown fields stay null and are listed in `needsConfirmation`.
 

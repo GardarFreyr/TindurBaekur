@@ -4,7 +4,7 @@ import sharp from 'sharp';
 import { mkdir, copyFile, writeFile, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { images } from './src/data.mjs';
-import { renderHome, renderBook, books } from './src/page.mjs';
+import { renderHome, renderBook, books, PUBLIC, SITE_URL } from './src/page.mjs';
 
 const DIST = 'dist';
 const FONTS = [
@@ -42,11 +42,19 @@ for (const [key, img] of Object.entries(images)) {
 }
 
 for (const f of ['styles.css', 'main.js']) await copyFile(`src/${f}`, `${DIST}/${f}`);
-await writeFile(`${DIST}/robots.txt`, '# Sýnidæmi – ekki til birtingar\nUser-agent: *\nDisallow: /\n');
+if (PUBLIC) {
+  await writeFile(`${DIST}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+  const urls = ['/', ...books.map((b) => `/baekur/${b.slug}/`)];
+  await writeFile(`${DIST}/sitemap.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${SITE_URL}${u}</loc></url>`).join('\n')}\n</urlset>\n`);
+} else {
+  // Not approved for launch yet: keep search engines out (meta tag, header, robots.txt).
+  await writeFile(`${DIST}/robots.txt`, 'User-agent: *\nDisallow: /\n');
+  await writeFile(`${DIST}/_headers`, '/*\n  X-Robots-Tag: noindex, nofollow\n');
+}
 await writeFile(`${DIST}/index.html`, renderHome());
 for (const b of books) {
   await mkdir(`${DIST}/baekur/${b.slug}`, { recursive: true });
   await writeFile(`${DIST}/baekur/${b.slug}/index.html`, renderBook(b));
 }
 console.log(`${books.length} book pages`);
-console.log('Built dist/');
+console.log(`Built dist/ (${PUBLIC ? 'PUBLIC: indexable' : 'not public: noindex'})`);

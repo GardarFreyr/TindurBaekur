@@ -105,3 +105,11 @@ Source: Helgi's "Tindur - textar við bækurnar.docx" (20 book texts) + 13 new c
 - Book-page prev/next links follow the new order.
 - Open questions: confirm the four older books; what the "swap with Veiðivinir 2" means (not applied); publication years; the four newest books still have no covers, so they show the "Kápa væntanleg" placeholder.
 - Domain: still https://tindurbaekur.netlify.app/. Nothing about tindurutgafa.is has been configured.
+
+---
+
+## Update 2026-11-18 – launch preparation (tindurutgafa.is)
+
+- Removed all demo content: the "Sýnidæmi til yfirlestrar · Ekki fullbúin vefverslun" strip, the "Merkja tillögur að texta" toggle and `data-proposed` marks, the "Kápa væntanleg" label on covers, the "Nánari bókarupplýsingar …" note on book pages, the order note under the filters, and demo wording in titles, descriptions and the footer. The footer now reads "© <year> Bókaútgáfan Tindur · Vefhönnun: Gardarvefur".
+- Launch switch: `TINDUR_PUBLIC=1` (env). Off (the default), the build writes the noindex meta tag, a `dist/_headers` X-Robots-Tag and a robots.txt that blocks everything. On, it writes canonical and og:url for https://tindurutgafa.is, an open robots.txt and `sitemap.xml`, and no noindex. The old noindex header in `netlify.toml` was moved into the build so the switch controls everything. To launch, add `TINDUR_PUBLIC = "1"` under `[build.environment]` in netlify.toml, but only after Helgi approves.
+- Domain: tindurutgafa.is already resolves to this Netlify site (checked 2026-11-18). Public launch approved; `TINDUR_PUBLIC = "1"` is set in netlify.toml.
