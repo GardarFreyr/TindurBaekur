@@ -56,11 +56,11 @@ export const images = {
   },
 };
 
-// Newly supplied covers (originals/kapur/*.jpg).
+// Supplied covers (originals/kapur/).
 const STEPS = [360, 540, 720, 960];
-for (const [key, [width, height]] of Object.entries(coverImages)) {
+for (const [key, [width, height, ext = 'jpg']] of Object.entries(coverImages)) {
   images[key] = {
-    file: `kapur/${key}.jpg`, width, height,
+    file: `kapur/${key}.${ext}`, width, height,
     widths: [...STEPS.filter((w) => w < width - 40), width],
     fallback: 'jpg',
   };

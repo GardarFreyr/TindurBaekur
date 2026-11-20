@@ -15,8 +15,7 @@ export const books = [
   {
     title: 'Veiðivinir 2',
     author: 'Gunnar Bender',
-    authorSource: 'inferred', // Inferred from the author paragraph under the book text.
-    cover: null,
+    cover: 'veidivinir-2',
     audience: [],
     description: [
       'Vinirnir Páll og Bjarni eru enn og aftur að undirbúa veiðiferðir sumarsins, skólinn búinn og líkt og síðasta sumar hafa þeir platað afa Páls til að koma þeim á milli veiðistaða í sumarfríinu. Að þessu sinni er ferðinni heitið í Veiðivötn, sem er náttúruperla rétt vestan við Vatnajökul, og núna er stelpa með í för.',
@@ -27,13 +26,13 @@ export const books = [
       'Gunnar Bender hefur stundað laxveiðar frá unga aldri og er orðinn einn þekktasti laxveiðimaður landsins. Sögurnar um Pál og Bjarna eru mikið byggðar á reynslu höfundar og þeim fjölmörgu ævintýrum sem hann hefur upplifað í gegnum árin að eltast við þann stóra. Gunnar hefur gefið út bækur um laxveiðar, skrifað greinar, ritstýrt Sportveiðiblaðinu, framleitt veiðiþætti fyrir sjónvarp og net, auk þess að halda úti vefsíðu um sportveiðar.',
     ],
     aboutHeading: 'Um höfundinn',
-    textNotes: ['„til koma“ breytt í „til að koma“.', 'Kápumynd vantar.', 'Höfundur ályktaður af texta um Gunnar Bender – staðfesta.'],
+    textNotes: ['„til koma“ breytt í „til að koma“.'],
   },
   {
     title: 'Systur',
     author: 'Raina Telgemeier',
     translator: 'Helgi Jónsson',
-    cover: null, // Only appears inside the Brostu/Systur banner.
+    cover: 'systur',
     audience: ['ungir'],
     translated: true,
     description: [
@@ -41,13 +40,13 @@ export const books = [
     ],
     about: ['Helgi Jónsson íslenskaði. Hann hefur þýtt m.a. Kidda klaufa bækurnar síðustu tuttugu ár.'],
     aboutHeading: 'Um þýðinguna',
-    textNotes: ['Kápumynd vantar (Systur sést aðeins á kynningarborða).', '„kom út í fyrra“ er afstætt tímaviðmið sem úreldist – íhuga að setja ártal.'],
+    textNotes: ['„kom út í fyrra“ er afstætt tímaviðmið sem úreldist – íhuga að setja ártal.'],
   },
   {
     title: 'Úr húfu Guðs í þennan heim',
     subtitle: 'Sjálfsævisaga Hallveigar Thorlacius',
     author: 'Hallveig Thorlacius',
-    cover: null,
+    cover: 'ur-hufu-guds-i-thennan-heim',
     audience: [],
     description: [
       '„Fyrsta minning mín skýr eftir öll þessi ár. Ég er farin að standa upprétt og er við endann á ógnarlöngum gangi sem liggur eftir endilöngum Austurbæjarskólanum. En nú ætla ég að leika mér að því að horfa yfir farinn veg, komin yfir á hinn endann.“ Hallveig Thorlacius segir ferðasögu ævi sinnar.',
@@ -58,14 +57,12 @@ export const books = [
       'Upphafsgreinin (tilvitnunin) var tvítekin í skjalinu – birt einu sinni.',
       '„þessi ferðasagna“ leiðrétt í „þessi ferðasaga“.',
       '„Fyrsta minning mín skýr“ – vantar e.t.v. orð („er skýr“)? Óbreytt.',
-      'Kápumynd vantar.',
     ],
   },
   {
     title: 'Leigubílstjóri deyr',
     author: 'Ágúst Þór Ámundason',
-    authorSource: 'inferred',
-    cover: null,
+    cover: 'leigubilstjori-deyr',
     audience: [],
     description: [
       'Leigubíll finnst skaðbrunninn við Reynisvatn í Reykjavík. Í honum eru líkamsleifar manns sem lögregla finnur strax út að hafi verið ráðinn bani áður en kveikt var í. Hlöðver Hlöðversson rannsakandi er settur í málið, sem leiðir að gömlu mannshvarfsmáli og að hópi vafasamra einstaklinga sem tengdust nektardansstöðunum um síðustu aldamót.',
@@ -75,7 +72,7 @@ export const books = [
       'Hann hefur unnið við ýmis störf, verið við sláturtíð, unnið í fiski, stundað sjómennsku, sölumennsku, útkeyrslu og í seinni tíð verið leigubílstjóri.',
     ],
     aboutHeading: 'Um höfundinn',
-    textNotes: ['Kápumynd vantar.', 'Höfundur ályktaður af texta um Ágúst Þór – staðfesta.'],
+    textNotes: [],
   },
   {
     title: 'Fuglar í íslenskri náttúru',
@@ -285,7 +282,7 @@ export const books = [
   },
 ];
 
-// Cover images (originals in /originals/kapur, read-only).
+// Cover images (originals in /originals/kapur, read-only). [width, height, ext = 'jpg']
 export const coverImages = {
   utanveltumadur: [772, 1148],
   undirheimar: [1200, 1772],
@@ -300,6 +297,11 @@ export const coverImages = {
   brostu: [1200, 1726],
   blodsnjor: [820, 1250],
   'ast-a-strondinni': [1200, 1861],
+  // Supplied 2026-11-20 as chat attachments (kept in their original format).
+  'veidivinir-2': [1272, 1734, 'webp'],
+  systur: [1026, 1484, 'png'],
+  'ur-hufu-guds-i-thennan-heim': [1042, 1658, 'webp'],
+  'leigubilstjori-deyr': [916, 1430, 'webp'],
 };
 
 const map = { á: 'a', ð: 'd', é: 'e', í: 'i', ó: 'o', ú: 'u', ý: 'y', þ: 'th', æ: 'ae', ö: 'o' };

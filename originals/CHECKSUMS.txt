@@ -18,3 +18,7 @@ a880eb970bbe745f8a6b91b96bc6ee92fede6bc5  originals/kapur/inga-slynga.jpg
 ffb721b3359decb78263a5e831bd93f775351aee  originals/kapur/sibba-subb.jpg
 77d53a43637ef321b1558eb08fb9a53bc8e85773  originals/kapur/undirheimar.jpg
 7c3bec643783a4dce59319175cbc8cbb49572892  originals/kapur/utanveltumadur.jpg
+ad192575a554e27aa101de9c2c4e76c956659ac8  originals/kapur/leigubilstjori-deyr.webp
+f6fcc7ac54854acffced8010b2b39f80a3b160d2  originals/kapur/systur.png
+1b36103c6fbdd3ead278e4a5c35016868794d7c1  originals/kapur/ur-hufu-guds-i-thennan-heim.webp
+3d175b72dfd1248186a283056e10bd7af7c859fe  originals/kapur/veidivinir-2.webp
